@@ -2,8 +2,8 @@ var App = React.createClass({
     getInitialState: function () {
         return {
             tab: 0,
-            searchString: ''
-
+            searchString: '',
+            events: this.props.events
         };
     },
 
@@ -14,9 +14,19 @@ var App = React.createClass({
     },
 
     handleSearchChange: function(value){
-        console.log(value);
+        this.state.searchString = value;
+        this.getFilteredEvents();
+    },
+
+    getFilteredEvents: function(){
+        var searchString = this.state.searchString.toLowerCase();
+
+        var events = this.props.events.filter(function (event) {
+            return event.event_clearance_subgroup.toLowerCase().match(searchString);
+        });
+
         this.setState({
-            searchString: value
+            events: events
         });
     },
 
@@ -26,11 +36,11 @@ var App = React.createClass({
             <Tabs handleTabClick={this.handleTabClick}/>
             <Search handleSearchChange={this.handleSearchChange} />
             {this.state.tab === 0 ?
-            <EventTable events={this.props.events} searchString={this.state.searchString}/>
+            <EventTable events={this.state.events} searchString={this.state.searchString}/>
             :null}
 
             {this.state.tab === 2 ?
-            <Map />
+            <Map events={this.state.events} blah="testt"/>
             :null}
         </div>
         );
@@ -43,7 +53,7 @@ var policeURL = 'https://data.seattle.gov/resource/pu5n-trf4.json';
 var testData;
 function getTestData() {
     return $.ajax({
-        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=100&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
+        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=10&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
         type: "get"
     });
 }
@@ -51,5 +61,10 @@ getTestData().done(function(data) {
     // Updates the UI based the ajax result
     console.log(data);
     testData = data;
+    var i = 0;
+    testData.forEach(function(item){
+        item.key = i++;
+    });
+    console.log(data);
     React.render(<App events={ testData }/>, document.getElementById('mount'));
 });
