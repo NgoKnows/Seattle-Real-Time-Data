@@ -21,7 +21,7 @@
 }
 
 #map-canvas {
-    height: 85vh;
+    height: 80vh;
     margin: 0px;
     padding: 0px
 }
@@ -31,7 +31,46 @@ input[type=search]{
     font-size: 3.3rem;
 }
 
-.animatepls{
-  transition: all 500ms ease;
-  box-sizing: border-box;
-}
+
+/*.example-enter {*/
+    /*opacity: 0.01;*/
+    /*transition: opacity .5s ease-in;*/
+/*}*/
+
+/*.example-enter.example-enter-active {*/
+    /*opacity: 1;*/
+/*}*/
+/*.example-leave {*/
+    /*opacity: 1;*/
+    /*transition: opacity .5s ease-in;*/
+/*}*/
+
+/*.example-leave.example-leave-active {*/
+    /*opacity: 0.01;*/
+/*}*/
+
+.demo-enter {
+         opacity: 0.01;
+         height: 0px;
+         padding: 0px 10px !important;
+         transition: opacity 500ms ease-out,
+                     padding 500ms ease-out,
+                     height 500ms ease-out;
+     }
+.demo-enter.demo-enter-active {
+         opacity: 1;
+         height: 16px;
+         padding: 10px !important;
+     }
+ .demo-leave {
+         opacity: 1;
+         height: 16px;
+         transition: opacity 500ms ease-out,
+                     padding 500ms ease-out,
+                     height 500ms ease-out;
+     }
+ .demo-leave.demo-leave-active {
+         oacity: 0;
+         height: 0px;
+         padding: 0px 10px !important;
+ }
