@@ -1,4 +1,8 @@
 var Map = React.createClass({
+    propTypes: {
+        events: React.PropTypes.array
+    },
+
     getInitialState: function() {
         return {
             map: null,
@@ -66,7 +70,7 @@ var Map = React.createClass({
                 title: event.event_clearance_subgroup,
                 optimized: false
             });
-        }, i * 5);
+        }, i * 3);
     },
 
     componentDidMount : function() {
