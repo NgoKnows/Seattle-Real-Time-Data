@@ -1,8 +1,4 @@
-.active {
-    border-style: solid;
-    border-width: 0 0 3px 0;
-}
-
+/*Tabs*/
 .tabs .tab a {
     color: #26a69a;
     border-color: #26a69a;
@@ -20,57 +16,28 @@
     padding-left: 30%;
 }
 
+.active {
+    border-style: solid;
+    border-width: 0 0 3px 0;
+}
+
+/*Map*/
 #map-canvas {
-    height: 80vh;
+    height: 75vh;
     margin: 0px;
     padding: 0px
 }
 
+/*Search Bar*/
 input[type=search]{
     height: 4rem;
     font-size: 3.3rem;
 }
 
-
-/*.example-enter {*/
-    /*opacity: 0.01;*/
-    /*transition: opacity .5s ease-in;*/
-/*}*/
-
-/*.example-enter.example-enter-active {*/
-    /*opacity: 1;*/
-/*}*/
-/*.example-leave {*/
-    /*opacity: 1;*/
-    /*transition: opacity .5s ease-in;*/
-/*}*/
-
-/*.example-leave.example-leave-active {*/
-    /*opacity: 0.01;*/
-/*}*/
-
-.demo-enter {
-         opacity: 0.01;
-         height: 0px;
-         padding: 0px 10px !important;
-         transition: opacity 500ms ease-out,
-                     padding 500ms ease-out,
-                     height 500ms ease-out;
-     }
-.demo-enter.demo-enter-active {
-         opacity: 1;
-         height: 16px;
-         padding: 10px !important;
-     }
- .demo-leave {
-         opacity: 1;
-         height: 16px;
-         transition: opacity 500ms ease-out,
-                     padding 500ms ease-out,
-                     height 500ms ease-out;
-     }
- .demo-leave.demo-leave-active {
-         oacity: 0;
-         height: 0px;
-         padding: 0px 10px !important;
- }
+/*Sort Buttons*/
+#sortButtonGroup{
+    padding-bottom: 1em;
+}
+.sortButton{
+    margin-right: 5px;
+}
