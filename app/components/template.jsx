@@ -1,51 +1,18 @@
-var List = React.createClass({
-        getInitialState: function() {
-                return {
-                        items: [0, 1, 2, 3]
-                };
-        },
+React.createClass({
 
-        removeThenReadd: function(item) {
-                // {{{
-                var items = this.state.items.slice(0);
-                var found = false;
-                for(var i = 0; i < items.length; i++) {
-                        if (items[i] === item) {
-                                items.splice(i, 1);
-                                found = true;
-                                break;
-                        }
-                }
+        propTypes: {},
+        mixins : [],
 
-                this.setState({items: items}, function() {
-                        if (found) {
-                                setTimeout(function() {
-                                        var items = this.state.items.slice(0);
-                                        items.push(item);
-                                        this.setState({items: items});
-                                }.bind(this), 5000);
+        getInitialState: function() {},
+        getDefaultProps: function() {},
 
-                        }
-                }.bind(this));
-                // }}}
-        },
+        componentWillMount : function() {},
+        componentWillReceiveProps: function() {},
+        componentWillUnmount : function() {},
 
-        _makeDiv: function(index) {
-                // {{{
-                return <div onClick={this.removeThenReadd.bind(null, index)}
-                            style={itemStyle}
-                            key={index}>
-                        {"Item " + index}
-                </div>;
-                // }}}
-        },
+        _parseData : function() {},
+        _onSelect : function() {},
 
-        render: function() {
-                var items = this.state.items.map(this._makeDiv);
-                return <TimeoutTransitionGroup enterTimeout={500}
-                                               leaveTimeout={500}
-                                               transitionName="demo">
-                        {items}
-                </TimeoutTransitionGroup>;
-        }
-});
+        render : function() {}
+
+})
