@@ -1,22 +1,15 @@
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var ReactTransitionGroup = React.addons.TransitionGroup;
 
 var EventTable = React.createClass({
-    getInitialState: function () {
-        return {
-            searchString: ''
-        };
+    propTypes: {
+        events: React.PropTypes.array
     },
+
     getEventRows: function (){
         var events = this.props.events;
         var i = 0;
         return events.map(function(event) {
-            return //<EventTable.EventRow event={event} key={event.key}/>
-            (<tr key={event.key}>
-                <td>{event.event_clearance_subgroup}</td>
-                <td>{event.event_clearance_date}</td>
-            <td>{event.initial_type_subgroup}</td>
-        </tr>)
+            return <EventTable.EventRow event={event} key={event.key}/>
         })
     },
 
@@ -33,13 +26,9 @@ var EventTable = React.createClass({
                     <td>Type</td>
                     </thead>
                     <tbody>
-                    <TimeoutTransitionGroup enterTimeout={500}
-                                            leaveTimeout={500}
-                                            transitionName="demo">
                             {
                                 this.getEventRows()
                             }
-                    </TimeoutTransitionGroup>
                     </tbody>
                 </table>
             </div>
