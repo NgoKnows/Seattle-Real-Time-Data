@@ -1,4 +1,8 @@
 var App = React.createClass({
+    propTypes: {
+        events: React.PropTypes.array
+    },
+
     getInitialState: function () {
         return {
             tab: 0,
@@ -35,12 +39,18 @@ var App = React.createClass({
         <div>
             <Tabs handleTabClick={this.handleTabClick}/>
             <Search handleSearchChange={this.handleSearchChange} />
+            <SortButtonGroup />
+
             {this.state.tab === 0 ?
-            <EventTable events={this.state.events} searchString={this.state.searchString}/>
+            <EventTable events={this.state.events}/>
+            :null}
+
+            {this.state.tab === 1 ?
+            <Graph events={this.state.events}/>
             :null}
 
             {this.state.tab === 2 ?
-            <Map events={this.state.events} blah="testt"/>
+            <Map events={this.state.events}/>
             :null}
         </div>
         );
@@ -53,18 +63,16 @@ var policeURL = 'https://data.seattle.gov/resource/pu5n-trf4.json';
 var testData;
 function getTestData() {
     return $.ajax({
-        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=10&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
+        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=200&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
         type: "get"
     });
 }
 getTestData().done(function(data) {
     // Updates the UI based the ajax result
-    console.log(data);
     testData = data;
     var i = 0;
     testData.forEach(function(item){
         item.key = i++;
     });
-    console.log(data);
     React.render(<App events={ testData }/>, document.getElementById('mount'));
 });
