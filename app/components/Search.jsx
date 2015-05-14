@@ -1,4 +1,8 @@
 var Search = React.createClass({
+    propTypes: {
+        handleSearchChange: React.PropTypes.func
+    },
+
     getInitialState: function () {
         return {
             searchString: ''
