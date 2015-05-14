@@ -1,4 +1,8 @@
 var Tabs = React.createClass({
+    propTypes: {
+        handleTabClick: React.PropTypes.func
+    },
+
     getInitialState: function () {
         return {
             tab: 0
