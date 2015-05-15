@@ -7,9 +7,20 @@ var App = React.createClass({
         return {
             tab: 0,
             searchString: '',
-            events: this.props.events
+            events: this.props.events,
+            sortCategory: "recent",
+            recentValue: 500,
+            dateRange: [[]]
         };
     },
+
+    handleCategorySwitch : function (category){
+        this.setState({
+            sortCategory: category
+        });
+    },
+
+    //handle
 
     handleTabClick: function(tabValue){
         this.setState({
@@ -63,7 +74,7 @@ var policeURL = 'https://data.seattle.gov/resource/pu5n-trf4.json';
 var testData;
 function getTestData() {
     return $.ajax({
-        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=200&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
+        url: "https://data.seattle.gov/resource/pu5n-trf4.json?$limit=100&$order=event_clearance_date DESC&$where=event_clearance_date > '2014-07-01'&$offset=0",
         type: "get"
     });
 }
