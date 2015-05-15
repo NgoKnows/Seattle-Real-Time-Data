@@ -15,7 +15,7 @@ var Search = React.createClass({
 
     render: function() {
         return (
-            <input type="search" placeholder="Searching!" onChange={this.handleChange} />
+            <input type="search" placeholder="Search!" onChange={this.handleChange} />
         );
     }
 });
