@@ -26,9 +26,9 @@ var Tabs = React.createClass({
             <div className="row">
                 <div className="col s12">
                     <ul className="tabs">
-                    <li className="tab col s2"><a className={getClass(0)} onClick={this.handleClick.bind(null, 0)}>List</a></li>
-                        <li className="tab col s2"><a className={getClass(1)} onClick={this.handleClick.bind(null, 1)}>Graph</a></li>
-                        <li className="tab col s2"><a className={getClass(2)} onClick={this.handleClick.bind(null, 2)}>Map</a></li>
+                    <li className="tab col s4"><a className={getClass(0)} onClick={this.handleClick.bind(null, 0)}>List</a></li>
+                        <li className="tab col s4"><a className={getClass(1)} onClick={this.handleClick.bind(null, 1)}>Graph</a></li>
+                        <li className="tab col s4"><a className={getClass(2)} onClick={this.handleClick.bind(null, 2)}>Map</a></li>
                     </ul>
                 </div>
             </div>
