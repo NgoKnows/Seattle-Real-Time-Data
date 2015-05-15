@@ -3,7 +3,7 @@
     color: #26a69a;
     border-color: #26a69a;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .tabs .tab a:hover {
@@ -13,7 +13,7 @@
 }
 
 .tabs {
-    padding-left: 30%;
+    margin-bottom: 2em;
 }
 
 .active {
@@ -30,14 +30,115 @@
 
 /*Search Bar*/
 input[type=search]{
-    height: 4rem;
-    font-size: 3.3rem;
+    height: 3.5rem;
+    font-size: 2.8rem;
 }
 
 /*Sort Buttons*/
+#groupCriteria{
+    /*display: none;*/
+}
 #sortButtonGroup{
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+    text-align: center;
 }
 .sortButton{
     margin-right: 5px;
+    margin-top: .5em;
+}
+
+/*date settings*/
+#to{
+    font-size: 24px;
+    font-weight: bold;
+    /*display: inline-block;*/
+}
+.date{
+    width: 90%;
+    /*display: inline-block;*/
+}
+#start{
+    /*margin-left: 0.5em;*/
+}
+#end{
+    /*margin-right: 0.5em;*/
+}
+#start, #end{
+    font-size: 24px;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#beginLabel{
+    margin-left: 2%;
+}
+
+#panel{
+    margin-bottom: 2em;
+}
+
+#dateContainer{
+    margin-top: 2em;
+    /*border-style: dashed;*/
+    /*border-width: 0 3px 3px 3px;*/
+}
+
+/*recent input*/
+#recentNumber{
+    width: 30%;
+    text-align: center;
+    font-size: 24px;
+    min-width: 120px
+}
+
+.fa{
+    margin-right: 7px;
+    border: none;
+}
+div a i.fa{
+    margin-top: 0;
+}
+div i.fa{
+    margin-top: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    /* tablets and desktop */
+    #sortButtonGroup{
+        text-align: left;
+    }
+    .sortButton{
+        margin-top: .5em;
+    }
+    #to{
+        width: 8%;
+        margin-left: 2.5%;
+        font-size: 24px;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .date{
+        width: 44%;
+        display: inline-block;
+    }
+    #start{
+        margin-right: 0;
+    }
+    #end{
+        margin-left: 0;
+    }
+    #start, #end{
+        font-size: 30px;
+    }
+    .tabs .tab a {
+        font-size: 28px;
+    }
+    #beginLabel{
+        margin-left: 2%;
+    }
+
+    input[type=search]{
+        font-size: 3.3rem;
+    }
 }
