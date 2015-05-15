@@ -39,9 +39,6 @@ var Map = React.createClass({
                     delete markers[key]
                 }
                 $.each(markers, function(index, value) {
-                    //for(var opacity = 1; opacity > 0.5; opacity -= .0001){
-                    //    value.setOpacity(opacity);
-                    //}
                     value.setMap(null);
                 });
                 this.state.markers = newMarkers;
