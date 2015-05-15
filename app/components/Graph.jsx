@@ -17,10 +17,12 @@ var Graph =React.createClass({
     //_parseData : function() {},
     //_onSelect : function() {},
     componentDidMount : function(){
-        makeGraph();
+        var data = getData(this.props.events)
+        makeGraph(data);
     },
 
     render : function() {
+        makeGraph(getData(this.props.events));
         return(
             <div id="container">
 
@@ -29,11 +31,25 @@ var Graph =React.createClass({
     }
 
 });
+var getData = function(events){
+    var data = [];
+    var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-var makeGraph = function(){
+    for (var dataLen = 0; dataLen < days.length; dataLen++){
+        data[dataLen] = 0;
+    }
+    for(var i = 0; i < events.length; i++){
+        var event = events[i];
+        data[(moment(event.event_clearance_date).isoWeekday() - 1)] = data[moment(event.date).isoWeekday() - 1] + 1;
+    }
+    return data;
+}
+var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+var makeGraph = function(data){
     $('#container').highcharts({
         chart: {
-            type: 'area'
+            type: 'line'
         },
         title: {
             text: 'Crimes in Seattle'
@@ -43,13 +59,7 @@ var makeGraph = function(){
         //    'thebulletin.metapress.com</a>'
         //},
         xAxis: {
-            allowDecimals: false,
-            labels: {
-                formatter: function () {
-                    var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-                    return days[this.value]; // clean, unformatted number for year
-                }
-            }
+            categories : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         },
         yAxis: {
             title: {
@@ -57,12 +67,12 @@ var makeGraph = function(){
             },
             labels: {
                 formatter: function () {
-                    return this.value / 1000 + 'k';
+                    return this.value;
                 }
             }
         },
         tooltip: {
-            pointFormat: '{series.name} made on <b>{point.x}</b><br/>'
+            pointFormat: '{point.y} {series.name} made on <b>{point.category}</b><br/>'
         },
         plotOptions: {
             area: {
@@ -81,7 +91,7 @@ var makeGraph = function(){
         },
         series: [{
             name: '911 Calls',
-            data: [510, 780, 510, 780, 480, 500, 578]
+            data: data
         }]
     });
 }
