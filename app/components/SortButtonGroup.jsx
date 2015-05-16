@@ -1,7 +1,8 @@
 var SortButtonGroup = React.createClass({
 
-    propTypes: {},
-    mixins : [],
+    propTypes: {
+        handleSortClick: React.PropTypes.func
+    },
 
     getInitialState: function() {
         return {
@@ -10,14 +11,10 @@ var SortButtonGroup = React.createClass({
     },
 
     sortButtonClick : function(buttonNum) {
-        console.log("HIII");
         if(this.state.openButton === buttonNum) buttonNum = 0;
         this.setState({
             openButton: buttonNum
         });
-    },
-    initializeDate: function(){
-
     },
 
     componentDidMount : function() {
@@ -30,11 +27,11 @@ var SortButtonGroup = React.createClass({
             <SortButtonGroup.ButtonGroup sortButtonClick={this.sortButtonClick}/>
             <div id="panel">
                 {this.state.openButton === 1 ?
-                    <SortButtonGroup.RecentPanel />:
+                    <SortButtonGroup.RecentPanel handleFilterClick={this.props.handleFilterClick}/>:
                         null}
 
                 {this.state.openButton === 2 ?
-                <SortButtonGroup.DatePanel />:
+                <SortButtonGroup.DatePanel handleFilterClick={this.props.handleFilterClick}/>:
                 null}
             </div>
         </div>
@@ -43,9 +40,9 @@ var SortButtonGroup = React.createClass({
 });
 
 SortButtonGroup.ButtonGroup = React.createClass({
-    propTypes: {},
-
-    //getInitialState: function() {},
+    propTypes: {
+        sortButtonClick : React.PropTypes.func
+    },
 
     render : function() {
         return(
@@ -61,59 +58,78 @@ SortButtonGroup.ButtonGroup = React.createClass({
 });
 
 SortButtonGroup.RecentPanel = React.createClass({
-    propTypes: {},
+    propTypes: {
+        handleFilterClick: React.PropTypes.func
+    },
 
-    //getInitialState: function() {},
-    getDefaultProps: function() {},
-
-    componentWillMount : function() {},
-    componentWillReceiveProps: function() {},
-    componentWillUnmount : function() {},
-
+    handleRecentClick: function() {
+        var recentNumber = $('#recentNumber').val();
+        this.props.handleFilterClick('recentValue', recentNumber);
+    },
     render : function() {
         return(
             <div className="input-field">
                 <i className="fa fa-clock-o prefix"></i>
                 <input id="recentNumber" type="number" />
-                <label for="recentNumber">Most Recent</label>
+                <label htmlFor="recentNumber">Most Recent</label>
+                <button className="btn waves-effect waves-light submit" type="submit" name="action"
+                        onClick={this.handleRecentClick}>
+                    <i className="mdi-content-send right"></i>
+                </button>
             </div>
         );
     }
 });
 
 SortButtonGroup.DatePanel = React.createClass({
-    propTypes: {},
+    propTypes: {
+        handleFilterClick: React.PropTypes.func
+    },
 
-    //getInitialState: function() {},
+    getInitialState: function() {
+        return {
+            beginDate: null,
+            endDate: null
+        }
+    },
     getDefaultProps: function() {},
 
-    componentWillUnmount : function() {},
+    handleDateClick: function() {
+        var begin = moment(this.state.beginDate.get());
+        var end = moment(this.state.endDate.get());
+        this.props.handleFilterClick('dateRange', [begin, end]);
+    },
+
     componentDidMount: function() {
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 5 // Creates a dropdown of 15 years to control year
         });
 
-        startDate = $('#start').pickadate().pickadate('picker');
-        endDate = $('#end').pickadate().pickadate('picker');
-        startDate.set('select', [2015, 4, 1]);
-        endDate.set('select', [2015, 4, 20]);
+        this.state.beginDate= $('#start').pickadate().pickadate('picker');
+        this.state.endDate = $('#end').pickadate().pickadate('picker');
+        this.state.beginDate.set('select', [2015, 4, 1]);
+        this.state.endDate.set('select', [2015, 4, 16]);
     },
 
     render : function() {
         return(
             <div id="dateContainer" className="input-field">
                 <div className="date">
-                    <label id="beginLabel" for="start">Begin Date</label>
+                    <label id="beginLabel" htmlFor="start">Begin Date</label>
                     <input type="date" className="datepicker" id="start" />
                 </div>
                 <div id="to" className="center-align">
                     to
                 </div>
                 <div className="date input-field">
-                    <label for="end">End Date</label>
+                    <label htmlFor="end">End Date</label>
                     <input type="date" className="datepicker" id="end" />
                 </div>
+                <button id="dateSubmit" className="btn waves-effect waves-light submit" type="submit" name="action"
+                        onClick={this.handleDateClick}>
+                    <i className="mdi-content-send right"></i>
+                </button>
             </div>
         );
     }
