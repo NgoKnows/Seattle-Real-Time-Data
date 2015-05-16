@@ -6,7 +6,8 @@ var Map = React.createClass({
     getInitialState: function() {
         return {
             map: null,
-            markers : {}
+            markers : {},
+            markerColors: {}
         }
 
     },
@@ -17,6 +18,8 @@ var Map = React.createClass({
     componentWillUnmount : function() {},
 
     getMarkers : function() {
+        this.getMarkerColors();
+
         if(this.state.map) {
             var events = this.props.events;
             var markers = this.state.markers;
@@ -30,8 +33,9 @@ var Map = React.createClass({
                         this.dropMarkers(this, event, i, markers);
                     }
                 }
+            //markers are being removed
             }else{
-                var newMarkers = {}
+                var newMarkers = {};
                 for (var i = 0; i < events.length; i++) {
                     var event = events[i];
                     var key = this.getKey(event);
@@ -48,40 +52,61 @@ var Map = React.createClass({
     },
 
     getKey: function(event){
-        //return event.latitude + event.longitude;
         return event.key;
     },
 
-    clearMarkers: function(){
-        for(var i = 0; i < this.state.markers.length; i++){
-            this.state.markers[i].setMap(null);
+    dropMarkers: function(component, event, i, markers, length){
+        var apart = 3;
+        var animation = google.maps.Animation.DROP;
+        if(length > 1000){
+            apart = 1
         }
-    },
+        if(length > 2000){
+            animation = null;
+        }
 
-    dropMarkers: function(component, event, i, markers){
         window.setTimeout(function() {
             markers[component.getKey(event)] = new google.maps.Marker({
                 position: new google.maps.LatLng(event.latitude, event.longitude),
                 map: component.state.map,
-                animation: google.maps.Animation.DROP,
+                animation: animation,
                 title: event.event_clearance_subgroup,
+                icon: component.state.markerColors[event.event_clearance_subgroup],
                 optimized: false
             });
-        }, i * 3);
+        }, i * apart);
+    },
+
+    getMarkerColors: function() {
+        var events = this.props.events;
+        var curColor = 1;
+        var markerColors = {};
+        var eventsLen = events.length;
+        for(var i = 0; i < eventsLen; i++){
+            event = events[i];
+            var type = event.event_clearance_subgroup;
+            if(!markerColors.hasOwnProperty(type)){
+                markerColors[type] =
+                    'assets/imgs/markers/map-marker' + curColor + '.png';
+                curColor++
+            }
+        }
+        this.state.markerColors = markerColors;
     },
 
     componentDidMount : function() {
         var mapOptions = {
             zoom: 12,
-            center: new google.maps.LatLng(47.6097, -122.3331)
+            center: new google.maps.LatLng(47.61225, -122.346006)
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
         this.setState({
-                map: map
-            });
+            map: map
+        });
     },
+
 
     render: function() {
         this.getMarkers();
