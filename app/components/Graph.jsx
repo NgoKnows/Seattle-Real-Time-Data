@@ -8,14 +8,7 @@ var Graph =React.createClass({
             category: 'day'
         };
     },
-    //getDefaultProps: function() {},
-    //
-    //componentWillMount : function() {},
-    //componentWillReceiveProps: function() {},
-    //componentWillUnmount : function() {},
-    //
-    //_parseData : function() {},
-    //_onSelect : function() {},
+
     componentDidMount : function(){
         var data = getData(this.props.events)
         makeGraph(data);
@@ -32,27 +25,49 @@ var Graph =React.createClass({
 
 });
 var getData = function(events){
-    var data = [];
     var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-    for (var dataLen = 0; dataLen < days.length; dataLen++){
-        data[dataLen] = 0;
+    var length = days.length;
+    for (var dataLen = 0, data = new Array(dataLen); dataLen < length;) data[dataLen++] = 0;
+
+    var eventsLen = events.length;
+    for(var i = 0; i < eventsLen; i++){
+        var event = (moment(events[i].event_clearance_date).isoWeekday() - 1);
+        data[event] = data[event] + 1;
     }
-    for(var i = 0; i < events.length; i++){
-        var event = events[i];
-        data[(moment(event.event_clearance_date).isoWeekday() - 1)] = data[moment(event.date).isoWeekday() - 1] + 1;
-    }
+
     return data;
-}
-var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+};
+var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 var makeGraph = function(data){
+    Highcharts.setOptions({
+        chart: {
+            style: {
+                fontFamily: 'Roboto',
+                fontSize: '1.25em'
+            },
+            lang: {
+                thousandsSep: ','
+            }
+        }
+    });
+
     $('#container').highcharts({
         chart: {
-            type: 'line'
+            type: 'line',
+            height: '550',
+            lang: {
+                thousandsSep: ','
+            }
         },
         title: {
-            text: 'Crimes in Seattle'
+            text: '911 Calls in Seattle',
+            fontSize: '8em',
+            style: {
+                fontFamily: 'Roboto',
+                fontSize: '2em'
+            }
         },
         //subtitle: {
         //    text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
@@ -69,10 +84,13 @@ var makeGraph = function(data){
                 formatter: function () {
                     return this.value;
                 }
+            },
+            lang: {
+                thousandsSep: ','
             }
         },
         tooltip: {
-            pointFormat: '{point.y} {series.name} made on <b>{point.category}</b><br/>'
+            pointFormat: '{point.y:,.0f} calls made on <b>{point.category}</b><br/>'
         },
         plotOptions: {
             area: {
@@ -91,7 +109,8 @@ var makeGraph = function(data){
         },
         series: [{
             name: '911 Calls',
-            data: data
+            data: data,
+            color: '#26a69a'
         }]
     });
 }
