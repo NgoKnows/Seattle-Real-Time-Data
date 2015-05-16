@@ -2,7 +2,6 @@
 .tabs .tab a {
     color: #26a69a;
     border-color: #26a69a;
-    font-weight: 700;
     font-size: 16px;
 }
 
@@ -13,17 +12,19 @@
 }
 
 .tabs {
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
+    font-weight: 500;
 }
 
 .active {
     border-style: solid;
     border-width: 0 0 3px 0;
+    font-weight: 900;
 }
 
 /*Map*/
 #map-canvas {
-    height: 75vh;
+    height: 70vh;
     margin: 0px;
     padding: 0px
 }
@@ -70,10 +71,6 @@ input[type=search]{
     margin-right: 5%;
 }
 
-#beginLabel{
-    margin-left: 2%;
-}
-
 #panel{
     margin-bottom: 2em;
 }
@@ -102,7 +99,48 @@ div a i.fa{
 div i.fa{
     margin-top: 15px;
 }
+#loading{
+    font-size: 42px;
+    width: 100%;
+}
+#loadingImg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#tableEnd{
+    font-size: 50px;
+    color: #818c81;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+}
+.submit{
+    width: 3em;
+    padding: 0;
+    padding-right: 10px;
+    margin-left: 1em;
+}
 
+#dateSubmit{
+    margin-top: 1em;
+    display: block;
+    margin-left: auto;
+    margin-right: 2em;
+}
+
+#ajaxLoader{
+    position: fixed;
+    top: 45vh;
+    left: 45vw;
+    width: 25em;
+    z-index: 9999;
+}
+/*hides html5 arrows on input*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 @media only screen and (min-width: 768px) {
     /* tablets and desktop */
     #sortButtonGroup{
@@ -119,7 +157,7 @@ div i.fa{
         display: inline-block;
     }
     .date{
-        width: 44%;
+        width: 42%;
         display: inline-block;
     }
     #start{
@@ -132,7 +170,7 @@ div i.fa{
         font-size: 30px;
     }
     .tabs .tab a {
-        font-size: 28px;
+        font-size: 26px;
     }
     #beginLabel{
         margin-left: 2%;
@@ -140,5 +178,11 @@ div i.fa{
 
     input[type=search]{
         font-size: 3.3rem;
+    }
+    #dateSubmit{
+        margin-top: 0;
+        display: inline-block;
+        margin-left: 1em;
+        margin-right: 0;
     }
 }
