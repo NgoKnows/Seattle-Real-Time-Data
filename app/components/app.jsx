@@ -34,6 +34,7 @@ var App = React.createClass({
         this.getFilteredEvents();
     },
 
+    //gets events based on current search
     getFilteredEvents: function(){
         var searchString = this.state.searchString.toLowerCase();
 
@@ -61,12 +62,13 @@ var App = React.createClass({
             var dateRange=  this.state.dateRange;
             url = url + "$limit=5000&$order=event_clearance_date DESC&$where=event_clearance_date between " +
                 "'" + dateRange[0].format('YYYY-MM-DD') + "'" + ' and ' + "'" + dateRange[1].format('YYYY-MM-DD') + "'";
-            console.log(url);
         }
+
         $.ajax({
             url: url,
             type: "get"
-        }).done(function(data){
+        })
+        .done(function(data){
             var i = 0;
             data.forEach(function(item){
                 item.key = i++;
@@ -114,3 +116,4 @@ var App = React.createClass({
 });
 
 React.render(<App />, document.getElementById('mount'));
+
