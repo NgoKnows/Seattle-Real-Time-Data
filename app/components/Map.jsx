@@ -61,7 +61,7 @@ var Map = React.createClass({
             animation = null;
         }
 
-        window.setTimeout(function() {
+        //window.setTimeout(function() {
             markers[component.getKey(event)] = new google.maps.Marker({
                 position: new google.maps.LatLng(event.latitude, event.longitude),
                 map: component.state.map,
@@ -70,7 +70,7 @@ var Map = React.createClass({
                 icon: component.state.markerColors[event.event_clearance_subgroup],
                 optimized: false
             });
-        }, i * apart);
+       // }, i * apart);
     },
 
     getMarkerColors: function() {
