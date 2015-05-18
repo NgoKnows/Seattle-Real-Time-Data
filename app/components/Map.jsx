@@ -9,15 +9,10 @@ var Map = React.createClass({
             markers : {},
             markerColors: {}
         }
-
     },
-    componentWillMount : function() {},
-    componentWillReceiveProps: function() {
-
-    },
-    componentWillUnmount : function() {},
 
     getMarkers : function() {
+        //get colors for each event
         this.getMarkerColors();
 
         if(this.state.map) {
@@ -25,28 +20,29 @@ var Map = React.createClass({
             var markers = this.state.markers;
             //if markers are being added
             if (events.length > Object.keys(markers).length) {
-                for (var i = 0; i < events.length; i++) {
+                for (var i = 0, length = events.length; i < length; i++) {
                     var event = events[i];
 
-                    //if marker doesn't already exist
+                    //if marker doesn't already exist then drop it
                     if (!markers.hasOwnProperty(this.getKey(event))) {
                         this.dropMarkers(this, event, i, markers);
                     }
                 }
+
             //markers are being removed
             }else{
                 var newMarkers = {};
-                for (var i = 0; i < events.length; i++) {
+                for (var i = 0, length = events.length; i < length; i++) {
                     var event = events[i];
                     var key = this.getKey(event);
                     newMarkers[key] = markers[key];
                     delete markers[key]
                 }
+                //remove each marker from the map
                 $.each(markers, function(index, value) {
                     value.setMap(null);
                 });
                 this.state.markers = newMarkers;
-
             }
         }
     },
@@ -81,8 +77,7 @@ var Map = React.createClass({
         var events = this.props.events;
         var curColor = 1;
         var markerColors = {};
-        var eventsLen = events.length;
-        for(var i = 0; i < eventsLen; i++){
+        for(var i = 0, length = events.length; i < length; i++){
             event = events[i];
             var type = event.event_clearance_subgroup;
             if(!markerColors.hasOwnProperty(type)){
@@ -107,16 +102,12 @@ var Map = React.createClass({
         });
     },
 
-
     render: function() {
         this.getMarkers();
-
         return (
         <div>
             <div id="map-canvas"></div>
         </div>
         )
-
     }
-
 });
