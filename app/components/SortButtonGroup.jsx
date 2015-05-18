@@ -4,6 +4,7 @@ var SortButtonGroup = React.createClass({
         handleSortClick: React.PropTypes.func
     },
 
+    // 0 = no button, 1 = most recent, 2 = date range
     getInitialState: function() {
         return {
           openButton: 0
@@ -15,10 +16,6 @@ var SortButtonGroup = React.createClass({
         this.setState({
             openButton: buttonNum
         });
-    },
-
-    componentDidMount : function() {
-
     },
 
     render : function() {
@@ -66,6 +63,7 @@ SortButtonGroup.RecentPanel = React.createClass({
         var recentNumber = $('#recentNumber').val();
         this.props.handleFilterClick('recentValue', recentNumber);
     },
+
     render : function() {
         return(
             <div className="input-field">
@@ -92,7 +90,6 @@ SortButtonGroup.DatePanel = React.createClass({
             endDate: null
         }
     },
-    getDefaultProps: function() {},
 
     handleDateClick: function() {
         var begin = moment(this.state.beginDate.get());
@@ -103,7 +100,7 @@ SortButtonGroup.DatePanel = React.createClass({
     componentDidMount: function() {
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
-            selectYears: 5 // Creates a dropdown of 15 years to control year
+            selectYears: 2 // Creates a dropdown of 15 years to control year
         });
 
         this.state.beginDate= $('#start').pickadate().pickadate('picker');
