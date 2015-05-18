@@ -11,6 +11,7 @@ var EventTable = React.createClass({
         }
     },
 
+    //infinite scrolling
     loadMoreEvents: function(){
         this.setState({
             limit: this.state.limit + 25
@@ -32,6 +33,7 @@ var EventTable = React.createClass({
 
     componentDidMount: function(){
         var component = this;
+        //listens for reaching bottom of screen to load more events
         $(window).scroll(function() {
             if($(window).scrollTop() + $(window).height() + 30 > $(document).height()) {
                 setTimeout(function(){
@@ -43,11 +45,10 @@ var EventTable = React.createClass({
 
     render: function() {
         var events = this.props.events;
-
         return (
             <div>
                 <table className="hoverable">
-                    <thead>
+                    <thead className="header">
                     <td>#</td>
                     <td>Name</td>
                     <td>Time</td>
