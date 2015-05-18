@@ -22,23 +22,21 @@ var Graph =React.createClass({
             </div>
         );
     }
-
 });
+
 var getData = function(events){
     var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-    var length = days.length;
-    for (var dataLen = 0, data = new Array(dataLen); dataLen < length;) data[dataLen++] = 0;
+    //fill data array with zeroes
+    for (var dataLen = 0, length = days.length, data = new Array(dataLen); dataLen < length;) data[dataLen++] = 0;
 
-    var eventsLen = events.length;
-    for(var i = 0; i < eventsLen; i++){
+    //calculating how many events occur on which day
+    for(var i = 0, eventsLen = events.length; i < eventsLen; i++){
         var event = (moment(events[i].event_clearance_date).isoWeekday() - 1);
         data[event] = data[event] + 1;
     }
-
     return data;
 };
-var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 var makeGraph = function(data){
     Highcharts.setOptions({
@@ -46,20 +44,13 @@ var makeGraph = function(data){
             style: {
                 fontFamily: 'Roboto',
                 fontSize: '1.25em'
-            },
-            lang: {
-                thousandsSep: ','
             }
         }
     });
-
     $('#container').highcharts({
         chart: {
             type: 'line',
             height: '550',
-            lang: {
-                thousandsSep: ','
-            }
         },
         title: {
             text: '911 Calls in Seattle',
