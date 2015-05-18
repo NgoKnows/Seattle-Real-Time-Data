@@ -8,19 +8,23 @@ var Tabs = React.createClass({
             tab: 0
         };
     },
+
     handleClick: function(tabValue){
         this.setState({
             tab: tabValue
         });
         this.props.handleTabClick(tabValue);
     },
+
     render: function(){
         var currentTab = this.state.tab;
+
+        //active class if current tab
         var getClass = function(tab) {
             return classNames({
             'active': currentTab === tab
             });
-        }
+        };
 
         return (
             <div className="row">
