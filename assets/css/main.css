@@ -135,7 +135,13 @@ div i.fa{
     width: 25em;
     z-index: 9999;
 }
-/*hides html5 arrows on input*/
+
+.header{
+    font-weight: 900;
+    font-size: 1.4em;
+}
+/*hides html5 arrows on input*/    /*font-weight: 900;*/
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -157,7 +163,7 @@ input[type=number]::-webkit-outer-spin-button {
         display: inline-block;
     }
     .date{
-        width: 42%;
+        width: 40%;
         display: inline-block;
     }
     #start{
