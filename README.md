@@ -1,8 +1,9 @@
 # Seattle-Real-Time-Data
 
-### [Link](www.alexngo.io/Seattle-Real-Time-Data)
+#### [Link][www.alexngo.io/Seattle-Real-Time-Data]
 
-### This is a single page application which displays Seattle 911 Call data in various ways.
+#### This is a single page application utilizing React which displays Seattle 911 Call data in various ways. Allows filtering by most
+recent x events, or by date ranges. Uses the Materialize CSS framework.
 
 ## List View
 Shows a list of 911 calls ordered by most recent
